@@ -32,6 +32,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./components/Register";
 import { AdminProvider } from "./context/AdminContext";
 import logo from "./assets/logos/logo.png";
+import { ThemeProvider } from './context/ThemeContext'; 
+import { Sun, Moon } from 'lucide-react';
+import ThemeToggle from './components/ThemeToggle';
+
 
 // The main layout with a sidebar that wraps all pages
 const MainLayout = () => {
@@ -51,9 +55,9 @@ const MainLayout = () => {
     navigate("/login");
   };
   return (
-    <div className="flex h-screen bg-gray-100 font-sans">
-      <aside className="w-64 bg-gray-800 text-white flex flex-col flex-shrink-0">
-        <div className="flex p-4 text-2xl font-bold border-b border-gray-700">
+    <div className="flex h-screen bg-app font-sans text-primary">
+      <aside className="w-64 bg-sidebar text-inverted flex flex-col flex-shrink-0">
+        <div className="flex p-4 text-2xl font-bold border-b border-default">
         <div className="flex">
             <img
               src={logo}
@@ -62,6 +66,7 @@ const MainLayout = () => {
             />
           </div>
           <div className="flex">Polaris</div>
+          <ThemeToggle />
           
         </div>
         <nav className="flex-1 p-2 space-y-2">
@@ -81,7 +86,7 @@ const MainLayout = () => {
           ))}
         </nav>
         {/* A placeholder for a potential future logout button */}
-        <div className="p-2 border-t border-gray-700">
+        <div className="p-2 border-t border-default">
           <button
             onClick={handleLogout}
             className="flex items-center w-full p-3 rounded-lg hover:bg-gray-700 transition-colors"
@@ -102,6 +107,7 @@ const MainLayout = () => {
 function App() {
   return (
     <Router>
+       <ThemeProvider>
       <AdminProvider>
         <Routes>
           {/* All routes are now children of the MainLayout */}
@@ -123,6 +129,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </AdminProvider>
+      </ThemeProvider>
     </Router>
   );
 }

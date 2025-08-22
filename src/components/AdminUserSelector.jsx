@@ -33,12 +33,12 @@ const AdminUserSelector = () => {
     if (userRole !== 'ADMIN') return null;
 
     return (
-        <div className="bg-yellow-100 text-yellow-800 p-4 flex items-center">
+        <div className="p-4 flex items-center bg-surface border-b border-default">
             <span className="font-bold mr-4">Admin View:</span>
             <select
                 value={impersonatedUserId || ''}
                 onChange={handleChange} 
-                className="p-2 rounded"
+                className="p-2 rounded bg-app border border-default text-primary"
             >
                 <option value="">View My Own Data</option>
                 {users.map(user => (

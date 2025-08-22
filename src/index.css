@@ -1,41 +1,55 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 @import "tailwindcss";
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
 
-
-
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+.light {
+  --color-bg-primary: 255 255 255; /* White */
+  --color-bg-secondary: 249 250 251; /* Gray-50 */
+  --color-bg-sidebar: 17 24 39; /* Gray-900 */
+  
+  --color-text-primary: 17 24 39; /* Gray-900 */
+  --color-text-secondary: 75 85 99; /* Gray-600 */
+  --color-text-inverted: 255 255 255; /* White */
+  
+  --color-accent: 59 130 246; /* Blue-500 */
+  --color-border: 229 231 235; /* Gray-200 */
 }
+
+.dark {
+  --color-bg-primary: 17 24 39; /* Gray-900 */
+  --color-bg-secondary: 31 41 55; /* Gray-800 */
+  --color-bg-sidebar: 17 24 39; /* Gray-900 */
+
+  --color-text-primary: 243 244 246; /* Gray-100 */
+  --color-text-secondary: 156 163 175; /* Gray-400 */
+  --color-text-inverted: 255 255 255; /* White */
+  
+  --color-accent: 96 165 250; /* Blue-400 */
+  --color-border: 55 65 81; /* Gray-700 */
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(var(--color-bg-primary));
+  color: rgb(var(--color-text-primary));
+}
+
+/* Utility mappings to theme variables */
+.bg-app { background-color: rgb(var(--color-bg-primary)); }
+.bg-surface { background-color: rgb(var(--color-bg-secondary)); }
+.bg-sidebar { background-color: rgb(var(--color-bg-sidebar)); }
+.text-primary { color: rgb(var(--color-text-primary)); }
+.text-secondary { color: rgb(var(--color-text-secondary)); }
+.text-inverted { color: rgb(var(--color-text-inverted)); }
+.border-default { border-color: rgb(var(--color-border)); }
+.text-accent { color: rgb(var(--color-accent)); }
+.bg-accent { background-color: rgb(var(--color-accent)); }

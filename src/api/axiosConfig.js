@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:5000/api", // Vite proxy forwards to http://localhost:5000/api
+  baseURL: "https://polariss.liara.run/api",
 });
 
 api.interceptors.request.use(
@@ -16,5 +16,5 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
+//baseURL: "http://127.0.0.1:5000/api"
 export default api;

@@ -61,9 +61,9 @@ const Dashboard = () => {
     // --- FIX: تغییر تابع renderItem برای مدیریت onClick ---
     const renderItem = (item) => {
         const content = (
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow flex flex-col items-center justify-center h-40 cursor-pointer">
-                <item.icon className="w-12 h-12 mb-4 text-blue-600" />
-                <span className="text-lg font-semibold text-gray-700">{item.label}</span>
+            <div className="bg-surface p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow flex flex-col items-center justify-center h-40 cursor-pointer border border-default">
+                <item.icon className="w-12 h-12 mb-4 text-accent" />
+                <span className="text-lg font-semibold text-primary">{item.label}</span>
             </div>
         );
 
@@ -79,9 +79,9 @@ const Dashboard = () => {
 <div>
       <AdminUserSelector selectedUserId={selectedUserId} setSelectedUserId={setSelectedUserId} />
       <PageHeader title="Dashboard" />
-      <div className="p-6 bg-gray-50 min-h-full">
-        <h1 className="text-3xl font-bold mb-2 text-gray-800">Welcome, {username}!</h1>
-        <p className="text-md text-gray-600 mb-8">Select a tool below to analyze the collected network data.</p>
+      <div className="p-6 bg-app min-h-full">
+        <h1 className="text-3xl font-bold mb-2 text-primary ">Welcome, {username}!</h1>
+        <p className="text-md text-secondary mb-8">Select a tool below to analyze the collected network data.</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dashboardItems.map(renderItem)}

@@ -15,10 +15,11 @@ import {
 } from "recharts";
 import { useAdmin } from "../context/AdminContext";
 import PageHeader from "./PageHeader";
+import AdminUserSelector from './AdminUserSelector';
 
 const SignalChart = ({ data, title, lines }) => (
-  <div className="bg-white p-4 rounded-lg shadow-md">
-    <h3 className="text-lg font-semibold text-gray-700 mb-4">{title}</h3>
+  <div className="bg-surface p-4 rounded-lg shadow-md border border-default">
+    <h3 className="text-lg font-semibold text-primary mb-4">{title}</h3>
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
@@ -47,6 +48,8 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 const ChartsView = () => {
   const [data, setData] = useState([]);
   const { impersonatedUserId } = useAdmin();
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -101,10 +104,11 @@ const ChartsView = () => {
   return (
 <div className="flex flex-col h-full w-full">
             <PageHeader title="Passive Charts" />
-            <div className="flex-grow p-6 bg-gray-50 space-y-8 overflow-y-auto">
+            <AdminUserSelector selectedUserId={selectedUserId} setSelectedUserId={setSelectedUserId} />
+            <div className="flex-grow p-6 bg-app space-y-8 overflow-y-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     <div className="bg-white p-4 rounded-lg shadow-md">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">ARFCN for 4G</h3>
+                     <div className="bg-surface p-4 rounded-lg shadow-md border border-default">
+                        <h3 className="text-lg font-semibold text-primary mb-4">ARFCN for 4G</h3>
                         <ResponsiveContainer width="100%" height={300}>
                            <PieChart>
                                 {/* This is a placeholder; you'd create a similar memoized calculation for ARFCN distribution */}

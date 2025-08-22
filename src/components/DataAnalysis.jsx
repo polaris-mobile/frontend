@@ -18,6 +18,8 @@ import {
 } from "recharts";
 import { useAdmin } from "../context/AdminContext";
 import PageHeader from "./PageHeader";
+import AdminUserSelector from './AdminUserSelector';
+
 import mciLogo from "../assets/logos/mci.png";
 import irancellLogo from "../assets/logos/irancell.png";
 import rightelLogo from "../assets/logos/rightel.png";
@@ -77,6 +79,8 @@ const DataAnalysis = () => {
   const [measurements, setMeasurements] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { impersonatedUserId } = useAdmin();
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
 
   useEffect(() => {
     setIsLoading(true);
@@ -217,7 +221,7 @@ const DataAnalysis = () => {
         <div className="flex flex-col h-full w-full">
             <PageHeader title="Advanced Data Analysis" />
             <div className="flex-grow flex items-center justify-center">
-                <p className="text-gray-500">Analyzing data...</p>
+                <p className="text-secondary">Analyzing data...</p>
             </div>
         </div>
     );
@@ -227,6 +231,7 @@ if (!analysisResults) {
   return (
       <div className="flex flex-col h-full w-full bg-gray-50">
           <PageHeader title="Advanced Data Analysis" />
+          <AdminUserSelector selectedUserId={selectedUserId} setSelectedUserId={setSelectedUserId} />
           <div className="flex-grow flex items-center justify-center">
               <p className="text-center text-gray-600">
                   There is not enough data to generate an analysis for the selected user.
@@ -236,8 +241,9 @@ if (!analysisResults) {
   );
 }
   return (
-    <div className="bg-gray-50 min-h-full">
+    <div className="bg-app min-h-full">
       <PageHeader title="Advanced Data Analysis" />
+            <AdminUserSelector selectedUserId={selectedUserId} setSelectedUserId={setSelectedUserId} />
       <div className="p-6">
         {analysisResults ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -290,8 +296,8 @@ if (!analysisResults) {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Pie Chart for Network Type Distribution */}
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+          <div className="bg-surface p-4 rounded-lg shadow-md border border-default">
+            <h3 className="text-lg font-semibold text-primary mb-4">
               Network Technology Distribution
             </h3>
             <ResponsiveContainer width="100%" height={400}>
@@ -324,8 +330,8 @@ if (!analysisResults) {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+          <div className="bg-surface p-4 rounded-lg shadow-md border border-default">
+            <h3 className="text-lg font-semibold text-primary mb-4">
               RSRP vs. RSRQ Correlation
             </h3>
             <ResponsiveContainer width="100%" height={400}>

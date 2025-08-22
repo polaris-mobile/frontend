@@ -3,9 +3,12 @@ import api from "../api/axiosConfig";
 import { ArrowUpDown } from "lucide-react";
 import { useAdmin } from "../context/AdminContext";
 import PageHeader from "./PageHeader";
+import AdminUserSelector from './AdminUserSelector';
+
 
 const useSortableData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const sortedItems = useMemo(() => {
     let sortableItems = [...items];
     if (sortConfig !== null) {
@@ -40,7 +43,7 @@ const useSortableData = (items, config = null) => {
 const SortableHeader = ({ children, name, sortConfig, requestSort }) => {
   const isSorted = sortConfig && sortConfig.key === name;
   return (
-    <th className="px-4 py-2 bg-gray-200 text-left text-sm font-medium text-gray-700">
+    <th className="px-4 py-2 bg-surface text-left text-sm font-medium text-primary border-b border-default">
       <button
         onClick={() => requestSort(name)}
         className="flex items-center space-x-1"
@@ -48,7 +51,7 @@ const SortableHeader = ({ children, name, sortConfig, requestSort }) => {
         <span>{children}</span>
         <ArrowUpDown
           size={14}
-          className={isSorted ? "text-blue-600" : "text-gray-400"}
+          className={isSorted ? "text-accent" : "text-secondary"}
         />
       </button>
     </th>
@@ -90,8 +93,7 @@ const PassiveTable = () => {
   ];
 
   return (
-    <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-md">
-      <PageHeader title="Table View" />
+    <div className="overflow-x-auto bg-surface p-4 rounded-lg shadow-md border border-default">
       <table className="min-w-full">
         <thead>
           <tr>
@@ -111,7 +113,7 @@ const PassiveTable = () => {
           {items.map((r) => (
             <tr
               key={r.id}
-              className="border-b hover:bg-gray-50 text-sm text-gray-800"
+              className="border-b border-default hover:bg-app text-sm text-primary"
             >
               <td className="px-4 py-2">
                 {new Date(r.timestamp).toLocaleString()}
@@ -159,7 +161,7 @@ const ActiveTable = () => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white shadow rounded">
+      <table className="min-w-full bg-surface shadow rounded border border-default">
         <thead>
           <tr>
             {headers.map((h) => (
@@ -178,7 +180,7 @@ const ActiveTable = () => {
           {items.map((r) => (
             <tr
               key={r.id}
-              className="border-b hover:bg-gray-50 text-sm text-gray-800"
+              className="border-b border-default hover:bg-app text-sm text-primary"
             >
               <td className="px-4 py-2">
                 {new Date(r.timestamp).toLocaleString()}
@@ -201,15 +203,16 @@ const TableView = () => {
   return (
     <div className="flex flex-col h-full w-full">
       <PageHeader title="Table View" />
-      <div className="flex-grow p-6 bg-gray-50 space-y-8 overflow-y-auto">
+      <AdminUserSelector />
+      <div className="flex-grow p-6 bg-app space-y-8 overflow-y-auto">
         <div>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          <h2 className="text-2xl font-bold mb-4 text-primary">
             Passive Measurements
           </h2>
           <PassiveTable />
         </div>
         <div>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">
+          <h2 className="text-2xl font-bold mb-4 text-primary">
             Active Test Measurements
           </h2>
           <ActiveTable />

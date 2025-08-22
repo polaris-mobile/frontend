@@ -11,10 +11,10 @@ const PageHeader = ({ title }) => {
         : ownUsername;
 
     return (
-        <div className="p-6 border-b bg-white">
-            <h1 className="text-3xl font-bold text-gray-800">{title}</h1>
-            <p className="text-md text-gray-600">
-                Viewing data for: <span className="font-semibold">{displayName}</span>
+        <div className="p-6 border-b border-default bg-surface">
+            <h1 className="text-3xl font-bold text-primary">{title}</h1>
+            <p className="text-md text-secondary">
+                Viewing data for: <span className="font-semibold text-primary">{displayName}</span>
             </p>
         </div>
     );

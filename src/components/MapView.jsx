@@ -4,6 +4,8 @@ import api from '../api/axiosConfig';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext'
 import PageHeader from './PageHeader';
+import AdminUserSelector from './AdminUserSelector';
+
 
 
 const parameterOptions = {
@@ -38,6 +40,7 @@ const MapView = () => {
   const [colors, setColors] = useState(parameterOptions.rsrp.colors);
   const [isPanelOpen, setIsPanelOpen] = useState(true);
   const { impersonatedUserId } = useAdmin();
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
     const fetchLatest = async () => {
@@ -129,9 +132,10 @@ const getBackgroundColor = (value) => {
     // ★ FIX: Ensure the container takes up the full height of the main layout area ★
     <div className="flex flex-col h-full w-full">
       <PageHeader title="Map View" />
+      <AdminUserSelector selectedUserId={selectedUserId} setSelectedUserId={setSelectedUserId} />
       <div className="relative flex-grow">
       {isLoading ? (
-                    <div className="flex items-center justify-center h-full">Loading Map...</div>
+                    <div className="flex items-center justify-center h-full text-secondary">Loading Map...</div>
                 ) : points.length > 0 ? (
       <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -186,16 +190,16 @@ const getBackgroundColor = (value) => {
 ) : (
   <div className="flex items-center justify-center h-full">No data points to display on the map.</div>
                 )}
-      <div className="absolute top-4 right-4 z-[1000] bg-white p-4 rounded-lg shadow-lg w-80">
-        <button onClick={() => setIsPanelOpen(!isPanelOpen)} className="w-full flex justify-between items-center font-bold text-lg mb-2">
+      <div className="absolute top-4 right-4 z-[1000] bg-surface p-4 rounded-lg shadow-lg w-80 border border-default">
+        <button onClick={() => setIsPanelOpen(!isPanelOpen)} className="w-full flex justify-between items-center font-bold text-lg mb-2 text-primary">
           <span>Map Controls</span>
           {isPanelOpen ? <ChevronUp /> : <ChevronDown />}
         </button>
         {isPanelOpen && (
           <>
             <div className="mt-4">
-              <label className="block font-semibold mb-1">Parameter</label>
-              <select value={selectedParam} onChange={handleParamChange} className="w-full p-2 border rounded">
+              <label className="block font-semibold mb-1 text-primary">Parameter</label>
+              <select value={selectedParam} onChange={handleParamChange} className="w-full p-2 border rounded bg-app border-default text-primary">
                 {Object.entries(parameterOptions).map(([key, { name }]) => (
                   <option key={key} value={key}>{name}</option>
                 ))}
@@ -203,20 +207,20 @@ const getBackgroundColor = (value) => {
             </div>
             {parameterOptions[selectedParam].thresholds && (
               <div className="mt-4">
-                <label className="block font-semibold mb-1">Thresholds & Colors</label>
+                <label className="block font-semibold mb-1 text-primary">Thresholds & Colors</label>
                 {thresholds.map((thresh, i) => (
-                  <div key={i} className="flex items-center space-x-2 mb-2">
+                  <div key={i} className="flex items-center space-x-2 mb-2 text-primary">
                     <span>Value &lt;</span>
-                    <input type="number" value={thresh} onChange={(e) => handleThresholdChange(i, e.target.value)} className="w-20 p-1 border rounded" />
+                    <input type="number" value={thresh} onChange={(e) => handleThresholdChange(i, e.target.value)} className="w-20 p-1 border rounded bg-app border-default text-primary" />
                     <input type="color" value={colors[i]} onChange={(e) => handleColorChange(i, e.target.value)} className="w-8 h-8" />
                     <button onClick={() => removeThreshold(i)} className="text-red-500">&times;</button>
                   </div>
                 ))}
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 text-primary">
                     <span>Else</span>
                     <input type="color" value={colors[colors.length-1]} onChange={(e) => handleColorChange(colors.length-1, e.target.value)} className="w-8 h-8" />
                 </div>
-                <button onClick={addThreshold} className="mt-2 text-blue-500 text-sm">+ Add Threshold</button>
+                <button onClick={addThreshold} className="mt-2 text-accent text-sm">+ Add Threshold</button>
               </div>
             )}
           </>

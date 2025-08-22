@@ -71,8 +71,8 @@ const ActiveTestsView = () => {
   }, [data]);
 
   const renderChart = (title, dataKey, color, unit) => (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold text-gray-700 mb-4">{title}</h3>
+    <div className="bg-surface p-4 rounded-lg shadow-md border border-default">
+      <h3 className="text-lg font-semibold text-primary mb-4">{title}</h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -94,13 +94,13 @@ const ActiveTestsView = () => {
   );
 
   return (
-    <div className="bg-gray-50 min-h-full">
+    <div className="bg-app min-h-full">
       <PageHeader title="Active Test Results" />
       <div className="p-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Ping Chart */}
-          <div className="bg-white p-4 rounded-lg shadow-md lg:col-span-2">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+          <div className="bg-surface p-4 rounded-lg shadow-md lg:col-span-2 border border-default">
+            <h3 className="text-lg font-semibold text-primary mb-4">
               Ping RTT Over Time
             </h3>
             <ResponsiveContainer width="100%" height={400}>
@@ -120,7 +120,7 @@ const ActiveTestsView = () => {
               </ScatterChart>
             </ResponsiveContainer>
             {pingStats && (
-              <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-gray-600">
+              <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-secondary">
                 <span>
                   <strong>Mean:</strong> {pingStats.mean} ms
                 </span>
